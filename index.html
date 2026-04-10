@@ -454,7 +454,7 @@
   <div class="photo-wrap">
     <span class="crown">👑</span>
     <div class="photo-ring"></div>
-    <img class="sander-photo" src="Sander_billede.jpg" alt="Sander" id="sanderPhoto"/>
+    <img class="sander-photo" src="profile_frame.jpg" alt="Sander" id="sanderPhoto"/>
   </div>
   <p class="hero-tag">En høj drengs kroniker</p>
   <h1><em>Sander</em>bogen</h1>
@@ -787,58 +787,73 @@ const SKEMA = {
     ['12:00','12:45','Engelsk',false],
     ['12:45','13:30','Engelsk',false],
   ],
-  5: [ // Fredag — fast: Dansk x2 + pause. Resten roterer via getFredagSkema()
-    ['08:00','08:45','Dansk',false],
-    ['08:45','09:30','Dansk',false],
-    ['09:30','10:00','Pause',true],
-    // 10:00-13:30 indsættes dynamisk via getFredagSkema()
+  5: [ // Fredag udfyldes fuldt dynamisk via getFredagSkema()
+    // Hele dagen kommer fra rotationen
   ],
 };
 
-// Fredag rotation — 6-ugers cyklus, starter uge 15 (april 2026) som uge A (index 0)
-// A: Mat×3 + Historie, B: Fransk×2, C: Fransk×2, D: Dansk×2, E: Dansk×2, F: Mat×3 + Historie (mat først)
+// Fredag rotation — 6-ugers cyklus
+// 1-2: 6×Dansk, 3-4: 3×Matematik + 3×Historie, 5-6: 6×Fransk
 const FREDAG_ROTATION = [
-  [ // A — Mat×3 + Historie
-    ['10:00','10:45','Matematik',false],
-    ['10:45','11:30','Matematik',false],
-    ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Matematik',false],
-    ['12:45','13:30','Historie',false],
-  ],
-  [ // B — Fransk×2
-    ['10:00','10:45','Fransk',false],
-    ['10:45','11:30','Fransk',false],
-    ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Fri / tidlig hjem',true],
-    ['12:45','13:30','Fri / tidlig hjem',true],
-  ],
-  [ // C — Fransk×2
-    ['10:00','10:45','Fransk',false],
-    ['10:45','11:30','Fransk',false],
-    ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Fri / tidlig hjem',true],
-    ['12:45','13:30','Fri / tidlig hjem',true],
-  ],
-  [ // D — Dansk×2
+  [ // A — 6 × Dansk
+    ['08:00','08:45','Dansk',false],
+    ['08:45','09:30','Dansk',false],
+    ['09:30','10:00','Pause',true],
     ['10:00','10:45','Dansk',false],
     ['10:45','11:30','Dansk',false],
     ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Fri / tidlig hjem',true],
-    ['12:45','13:30','Fri / tidlig hjem',true],
+    ['12:00','12:45','Dansk',false],
+    ['12:45','13:30','Dansk',false],
   ],
-  [ // E — Dansk×2
+  [ // B — 6 × Dansk
+    ['08:00','08:45','Dansk',false],
+    ['08:45','09:30','Dansk',false],
+    ['09:30','10:00','Pause',true],
     ['10:00','10:45','Dansk',false],
     ['10:45','11:30','Dansk',false],
     ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Fri / tidlig hjem',true],
-    ['12:45','13:30','Fri / tidlig hjem',true],
+    ['12:00','12:45','Dansk',false],
+    ['12:45','13:30','Dansk',false],
   ],
-  [ // F — Mat×3 + Historie
+  [ // C — 3 × Matematik + 3 × Historie
+    ['08:00','08:45','Matematik',false],
+    ['08:45','09:30','Matematik',false],
+    ['09:30','10:00','Pause',true],
     ['10:00','10:45','Matematik',false],
-    ['10:45','11:30','Matematik',false],
+    ['10:45','11:30','Historie',false],
     ['11:30','12:00','Pause',true],
-    ['12:00','12:45','Matematik',false],
+    ['12:00','12:45','Historie',false],
     ['12:45','13:30','Historie',false],
+  ],
+  [ // D — 3 × Matematik + 3 × Historie
+    ['08:00','08:45','Matematik',false],
+    ['08:45','09:30','Matematik',false],
+    ['09:30','10:00','Pause',true],
+    ['10:00','10:45','Matematik',false],
+    ['10:45','11:30','Historie',false],
+    ['11:30','12:00','Pause',true],
+    ['12:00','12:45','Historie',false],
+    ['12:45','13:30','Historie',false],
+  ],
+  [ // E — 6 × Fransk
+    ['08:00','08:45','Fransk',false],
+    ['08:45','09:30','Fransk',false],
+    ['09:30','10:00','Pause',true],
+    ['10:00','10:45','Fransk',false],
+    ['10:45','11:30','Fransk',false],
+    ['11:30','12:00','Pause',true],
+    ['12:00','12:45','Fransk',false],
+    ['12:45','13:30','Fransk',false],
+  ],
+  [ // F — 6 × Fransk
+    ['08:00','08:45','Fransk',false],
+    ['08:45','09:30','Fransk',false],
+    ['09:30','10:00','Pause',true],
+    ['10:00','10:45','Fransk',false],
+    ['10:45','11:30','Fransk',false],
+    ['11:30','12:00','Pause',true],
+    ['12:00','12:45','Fransk',false],
+    ['12:45','13:30','Fransk',false],
   ],
 ];
 
@@ -854,19 +869,15 @@ function getRotationIndex(weekNum, year) {
 }
 
 function getFredagSkema(monday) {
-  const ref = new Date(2026, 3, 7); // mandag 7. april 2026 = uge 15 = rotation A
+  const ref = new Date(2026, 2, 16); // mandag i første 6×Dansk-uge
   const diffMs = monday - ref;
-  const diffWeeks = Math.round(diffMs / (7 * 24 * 60 * 60 * 1000));
+  const diffWeeks = Math.floor(diffMs / (7 * 24 * 60 * 60 * 1000));
   const idx = ((diffWeeks % 6) + 6) % 6;
-  const rot = FREDAG_ROTATION[idx];
-  // Returner kun de slots der ikke er "Fri / tidlig hjem"
-  return rot.filter(l => !l[2].startsWith('Fri'));
+  return FREDAG_ROTATION[idx];
 }
 
 function getFullFredagSkema(monday) {
-  // Fast del: Dansk 08:00-09:30 + pause — hent de første 3 slots fra SKEMA[5]
-  const fastDel = SKEMA[5].slice(0, 3); // Dansk, Dansk, Pause
-  return [...fastDel, ...getFredagSkema(monday)];
+  return getFredagSkema(monday);
 }
 
 const DAGE = ['','Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
@@ -1101,9 +1112,9 @@ function renderNews(){
     const lessons = dow===5 ? getFullFredagSkema(baseMonday) : (SKEMA[dow]||[]);
 
     let cardHTML=`<div class="day-card fi${isToday?' visible':''}">`;
-    const rotNames=['Mat×3+His','Fransk×2','Fransk×2','Dansk×2','Dansk×2','Mat×3+His'];
-    const ref2=new Date(2026,3,7);
-    const diffW=Math.round((baseMonday-ref2)/(7*24*60*60*1000));
+    const rotNames=['6×Dansk','6×Dansk','3×Mat + 3×His','3×Mat + 3×His','6×Fransk','6×Fransk'];
+    const ref2=new Date(2026,2,16);
+    const diffW=Math.floor((baseMonday-ref2)/(7*24*60*60*1000));
     const rotIdx=((diffW%6)+6)%6;
     cardHTML+=`<div class="day-header">
       <span class="day-name">${DAGE_SHORT[dow]} ${day.getDate()}/${day.getMonth()+1}</span>
