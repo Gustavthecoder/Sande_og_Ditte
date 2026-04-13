@@ -15,6 +15,8 @@
       --gold2: #e8b96a;
       --rose: #c04060;
       --rose2: #e8708a;
+      --teal: #2a9d8f;
+      --teal2: #52c5b6;
       --cream: #f0e8dc;
       --dim: #4a4a58;
       --mid: #7a7a8a;
@@ -407,6 +409,116 @@
       cursor:pointer; transition:background 0.2s; white-space:nowrap;
     }
     .cal-add-btn:hover { background:rgba(201,149,58,0.2); }
+
+    /* ── EKSTRA SANGE ── */
+    .esange-wrap { max-width:700px; margin:0 auto; padding:80px 24px; position:relative; z-index:1; }
+    .esange-grid { display:flex; flex-direction:column; gap:14px; margin-top:28px; }
+    .esang-card {
+      background: var(--s1); border:1px solid rgba(255,255,255,0.06); border-radius:16px;
+      padding:20px 24px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .esang-card:hover { border-color:rgba(201,149,58,0.25); transform:translateY(-2px); }
+    .esang-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:var(--cream); margin-bottom:3px; }
+    .esang-sub { font-family:'Space Mono',monospace; font-size:0.52rem; letter-spacing:0.14em; color:var(--dim); margin-bottom:12px; }
+    .esang-controls { display:flex; align-items:center; gap:10px; }
+    .esang-btn { width:42px; height:42px; border-radius:50%; background:linear-gradient(135deg,var(--rose),#7a1025); border:none; cursor:pointer; color:#fff; display:flex; align-items:center; justify-content:center; transition:transform 0.15s, box-shadow 0.2s; flex-shrink:0; }
+    .esang-btn:hover { transform:scale(1.08); box-shadow:0 0 0 10px rgba(192,64,96,0.1); }
+    .esang-btn.on { animation:rosePulse 2s ease-in-out infinite; }
+    .esang-prog-wrap { flex:1; height:4px; background:rgba(255,255,255,0.08); border-radius:2px; cursor:pointer; overflow:hidden; }
+    .esang-prog-fill { height:100%; background:linear-gradient(90deg,var(--rose),var(--rose2)); border-radius:2px; width:0%; transition:width 0.25s linear; }
+    .esang-time { font-family:'Space Mono',monospace; font-size:0.6rem; color:var(--dim); flex-shrink:0; min-width:40px; text-align:right; }
+
+    /* ══════════════════════════════════════
+       ── DITTEBOGEN SEKTION ──
+       ══════════════════════════════════════ */
+
+    /* Ditte hero sektion */
+    .ditte-section-hero {
+      min-height: 100vh; display:flex; flex-direction:column;
+      align-items:center; justify-content:center; text-align:center;
+      padding:100px 24px 60px; position:relative; z-index:1; overflow:hidden;
+    }
+    .ditte-hero-glow {
+      position:absolute; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 38%, rgba(42,157,143,0.09) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 40% at 22% 78%, rgba(192,64,96,0.06) 0%, transparent 55%);
+    }
+    .ditte-photo {
+      width:200px; height:200px; border-radius:50%;
+      object-fit:cover; object-position:center 20%;
+      border:2px solid rgba(42,157,143,0.35);
+      box-shadow:0 0 0 6px rgba(42,157,143,0.07), 0 30px 70px rgba(0,0,0,0.85);
+      display:block; cursor:pointer;
+      transition:transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s;
+    }
+    .ditte-photo:hover { transform:scale(1.06); box-shadow:0 0 0 12px rgba(42,157,143,0.1),0 30px 70px rgba(0,0,0,0.9); }
+    .ditte-photo-ring {
+      position:absolute; inset:-12px; border-radius:50%;
+      border:1px solid rgba(42,157,143,0.2);
+      animation:rotateSlow 22s linear infinite;
+    }
+    .ditte-photo-ring::before { content:''; position:absolute; inset:-16px; border-radius:50%; border:1px solid rgba(42,157,143,0.09); }
+    .ditte-photo-ring::after { content:''; position:absolute; inset:-30px; border-radius:50%; border:1px solid rgba(192,64,96,0.07); animation:rotateSlow 34s linear infinite reverse; }
+    .ditte-hero-tag { font-family:'Space Mono',monospace; font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; opacity:0; animation:fuIn 0.8s 0.5s forwards; z-index:2; }
+    .ditte-hero-title { font-family:'Playfair Display',serif; font-size:clamp(3rem,9vw,5.5rem); font-weight:700; line-height:1.06; color:var(--cream); opacity:0; animation:fuIn 0.9s 0.7s forwards; z-index:2; }
+    .ditte-hero-title em { font-style:italic; color:var(--teal2); }
+    .ditte-hero-sub { margin-top:16px; font-size:1.25rem; font-style:italic; color:var(--mid); opacity:0; animation:fuIn 0.9s 0.9s forwards; z-index:2; }
+
+    /* Ditte kapitelkort — teal accent */
+    .ditte-chap-card { border-color:rgba(42,157,143,0.12) !important; }
+    .ditte-chap-card:hover { border-color:rgba(42,157,143,0.28) !important; box-shadow:0 28px 60px rgba(0,0,0,0.55),0 0 0 1px rgba(42,157,143,0.07) inset !important; }
+    .ditte-chap-card h3 em { color:var(--teal2) !important; }
+    .ditte-chap-card .chap-quote { background:rgba(42,157,143,0.08); border-color:var(--teal); color:var(--teal2); }
+
+    /* Brev */
+    .brev-wrap { max-width:700px; margin:0 auto; padding:80px 24px; position:relative; z-index:1; }
+    .brev-card { background:var(--s1); border:1px solid rgba(192,64,96,0.15); border-radius:24px; padding:52px 48px; position:relative; overflow:hidden; }
+    .brev-card::before { content:'"'; position:absolute; top:-20px; left:20px; font-family:'Playfair Display',serif; font-size:14rem; color:rgba(192,64,96,0.05); line-height:1; pointer-events:none; }
+    .brev-tag { font-family:'Space Mono',monospace; font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--rose); margin-bottom:20px; }
+    .brev-title { font-family:'Playfair Display',serif; font-size:2.2rem; font-style:italic; color:var(--rose2); margin-bottom:28px; line-height:1.15; }
+    .brev-body { font-size:1.15rem; line-height:1.9; color:rgba(240,232,220,0.72); font-weight:300; }
+    .brev-body p+p { margin-top:16px; }
+    .brev-body em { font-style:italic; color:var(--cream); }
+    .brev-sig { margin-top:32px; font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem; color:var(--rose2); }
+
+    /* Tidslinje */
+    .timeline-wrap { max-width:680px; margin:0 auto; padding:80px 24px; position:relative; z-index:1; }
+    .timeline { position:relative; padding-left:32px; }
+    .timeline::before { content:''; position:absolute; left:5px; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,var(--teal),rgba(42,157,143,0.1)); }
+    .tl-item { position:relative; margin-bottom:40px; opacity:0; translate:0 18px; transition:opacity .6s cubic-bezier(.22,1,.36,1),translate .6s cubic-bezier(.22,1,.36,1); }
+    .tl-item.visible { opacity:1; translate:0 0; }
+    .tl-dot { position:absolute; left:-28px; top:6px; width:11px; height:11px; border-radius:50%; background:var(--teal); border:2px solid var(--bg); }
+    .tl-dot.rose { background:var(--rose); }
+    .tl-year { font-family:'Space Mono',monospace; font-size:0.56rem; letter-spacing:0.18em; color:var(--teal); margin-bottom:6px; }
+    .tl-year.rose { color:var(--rose2); }
+    .tl-title { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--cream); margin-bottom:8px; line-height:1.2; }
+    .tl-title em { font-style:italic; color:var(--teal2); }
+    .tl-body { font-size:1rem; line-height:1.78; color:rgba(240,232,220,0.6); font-weight:300; }
+
+    /* Fakta-grid */
+    .facts-wrap { max-width:900px; margin:0 auto; padding:80px 24px; position:relative; z-index:1; }
+    .facts-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin-top:36px; }
+    .fact-card { background:var(--s1); border:1px solid rgba(255,255,255,0.055); border-radius:20px; padding:32px 26px; position:relative; overflow:hidden; opacity:0; translate:0 20px; transition:opacity 0.6s cubic-bezier(0.22,1,0.36,1),translate 0.6s cubic-bezier(0.22,1,0.36,1),border-color 0.3s,transform 0.35s; }
+    .fact-card.visible { opacity:1; translate:0 0; }
+    .fact-card:hover { transform:translateY(-5px); border-color:rgba(42,157,143,0.2); }
+    .fact-icon { font-size:2rem; margin-bottom:14px; display:block; }
+    .fact-label { font-family:'Space Mono',monospace; font-size:0.54rem; letter-spacing:0.22em; color:var(--dim); margin-bottom:8px; }
+    .fact-card h3 { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--cream); margin-bottom:10px; line-height:1.2; }
+    .fact-card h3 em { font-style:italic; color:var(--teal2); }
+    .fact-card p { font-size:1rem; line-height:1.8; color:rgba(240,232,220,0.6); font-weight:300; }
+
+    /* Ditte sektion-separator */
+    .ditte-sep {
+      max-width:900px; margin:0 auto 0; padding:60px 40px 0;
+      display:flex; align-items:center; gap:20px; position:relative; z-index:1;
+    }
+    .ditte-sep-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(42,157,143,0.3),transparent); }
+    .ditte-sep-label {
+      font-family:'Playfair Display',serif; font-style:italic; font-size:1.6rem;
+      color:var(--teal2); white-space:nowrap;
+    }
   </style>
 </head>
 <body>
@@ -417,6 +529,9 @@
 
 <audio id="bgAudio" src="Kærlighed_Pa_Siden.mp3" loop preload="auto"></audio>
 <audio id="sdAudio" src="Sander_og_Ditte.mp3" preload="auto"></audio>
+<audio id="esAudio1" src="Kagefest.mp3" preload="metadata"></audio>
+<audio id="esAudio2" src="Sander_Cracker_Ditte_og_Farhad.mp3" preload="metadata"></audio>
+<audio id="esAudio3" src="Sander_I_Cirklen_Af_Ting.mp3" preload="metadata"></audio>
 
 <div id="eggToast"></div>
 
@@ -437,6 +552,7 @@
     <a href="#news">Sander nu</a>
     <a href="#sang">Sangen</a>
     <a href="#videoer">Videoer</a>
+    <a href="#musik">Musik</a>
   </div>
   <span class="nav-brand" id="navBrand">Sanderbogen</span>
   <div id="musicBadge">
@@ -454,7 +570,7 @@
   <div class="photo-wrap">
     <span class="crown">👑</span>
     <div class="photo-ring"></div>
-    <img class="sander-photo" src="Sander_billede.jpg" alt="Sander" id="sanderPhoto"/>
+    <img class="sander-photo" src="profile_frame.jpg" alt="Sander" id="sanderPhoto"/>
   </div>
   <p class="hero-tag">En høj drengs kroniker</p>
   <h1><em>Sander</em>bogen</h1>
@@ -601,17 +717,280 @@
       <p class="vid-label">Sander AI · 01</p>
       <video controls preload="metadata"><source src="Sander_AI_video.mp4" type="video/mp4"/></video>
     </div>
-    <div class="vid-card fi" style="transition-delay:0.12s">
-      <p class="vid-label">Sander AI · 02</p>
-      <video controls preload="metadata"><source src="Sander_ai_video_.mp4" type="video/mp4"/></video>
+
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<!-- ── EKSTRA MUSIK ── -->
+<section class="esange-wrap fi" id="musik">
+  <p class="sec-tag" style="margin-bottom:10px">Flere sange</p>
+  <div class="esange-grid">
+
+    <div class="esang-card fi">
+      <p class="esang-name">🎂 Kagefest</p>
+      <p class="esang-sub">Fest · kage · Sander-vibes</p>
+      <div class="esang-controls">
+        <button class="esang-btn" data-audio="esAudio1">
+          <svg data-play width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg data-pause width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        </button>
+        <div class="esang-prog-wrap" data-prog="esAudio1"><div class="esang-prog-fill"></div></div>
+        <span class="esang-time" data-time="esAudio1">--:--</span>
+      </div>
+    </div>
+
+    <div class="esang-card fi" style="transition-delay:.08s">
+      <p class="esang-name">🥜 Sander, Cracker, Ditte og Farhad</p>
+      <p class="esang-sub">Gangbanden samles</p>
+      <div class="esang-controls">
+        <button class="esang-btn" data-audio="esAudio2">
+          <svg data-play width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg data-pause width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        </button>
+        <div class="esang-prog-wrap" data-prog="esAudio2"><div class="esang-prog-fill"></div></div>
+        <span class="esang-time" data-time="esAudio2">--:--</span>
+      </div>
+    </div>
+
+    <div class="esang-card fi" style="transition-delay:.16s">
+      <p class="esang-name">🌀 Sander i Cirklen af Ting</p>
+      <p class="esang-sub">Sander · cirkler · eksistentialisme</p>
+      <div class="esang-controls">
+        <button class="esang-btn" data-audio="esAudio3">
+          <svg data-play width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg data-pause width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        </button>
+        <div class="esang-prog-wrap" data-prog="esAudio3"><div class="esang-prog-fill"></div></div>
+        <span class="esang-time" data-time="esAudio3">--:--</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+
+
+<!-- ── DITTEBOGEN (skjult — unlock med kode) ── -->
+<div id="ditteSection" style="display:none">
+<!-- ══════════════════════════════════════════════════════
+     ── DITTEBOGEN ──
+     ══════════════════════════════════════════════════════ -->
+
+<div class="ditte-sep">
+  <div class="ditte-sep-line"></div>
+  <span class="ditte-sep-label">🌿 Dittebogen</span>
+  <div class="ditte-sep-line"></div>
+</div>
+
+<!-- ── DITTE HERO ── -->
+<section class="ditte-section-hero" id="dittebogen">
+  <div class="ditte-hero-glow"></div>
+  <div class="photo-wrap">
+    <span class="crown">🌿</span>
+    <div class="ditte-photo-ring"></div>
+    <img class="ditte-photo" src="profile_frame.jpg" alt="Ditte" id="dittePhoto"/>
+  </div>
+  <p class="ditte-hero-tag">En spejderpiges kroniker</p>
+  <h1 class="ditte-hero-title"><em>Ditte</em>bogen</h1>
+  <p class="ditte-hero-sub">Historien om pigen der overnattede i skov og fandt Sander</p>
+  <div class="hero-scroll">
+    <span>scroll ned</span>
+    <div class="scroll-line" style="background:linear-gradient(to bottom,var(--teal),transparent)"></div>
+  </div>
+</section>
+
+<!-- ── DITTE HISTORIER ── -->
+<section class="hscroll-section" id="ditte-historier">
+  <div class="hscroll-header">
+    <p class="sec-tag fi" style="color:var(--teal)">Dittes kapitler — træk til siden</p>
+  </div>
+  <div class="htrack-wrap" id="ditteTrackWrap">
+    <div class="htrack">
+
+      <div class="chap-card ditte-chap-card" data-num="1">
+        <span class="chap-emoji">🌿</span>
+        <p class="chap-num">Kapitel 1</p>
+        <h3>Spejder&shy;<em>pigen</em></h3>
+        <p>Ditte er den slags person der frivilligt sover i telt i november. Ikke fordi hun skal — men fordi hun vil. Det siger alt om hende.</p>
+        <p>Kompas, tændstik, og en plan der ændrer sig hver gang det begynder at regne.</p>
+        <div class="chap-quote">Det er ikke overlevelse — det er livsstil.</div>
+      </div>
+
+      <div class="chap-card ditte-chap-card" data-num="2">
+        <span class="chap-emoji">🔥</span>
+        <p class="chap-num">Kapitel 2</p>
+        <h3>Bålet der <em>virker</em></h3>
+        <p>De fleste prøver at tænde bål og giver op. Ditte tænder bål og laver mad på det. Der er forskel.</p>
+        <p>En gang tog hun tre forsøg og sagde ikke et ord om det. Tredje gang brændte det perfekt.</p>
+        <div class="chap-quote">Tålmodighed er en undervurderet superkraft.</div>
+      </div>
+
+      <div class="chap-card ditte-chap-card" data-num="3">
+        <span class="chap-emoji">🗺️</span>
+        <p class="chap-num">Kapitel 3</p>
+        <h3>Kompasset <em>lyver aldrig</em></h3>
+        <p>Orientering er ikke bare et kort og et kompas. Det er at kende forskel på nordøst og sydvest når man er træt, våd og fryser.</p>
+        <div class="chap-quote">"Vi er ikke faret vild — vi tager bare en alternativ rute."</div>
+        <p>Hun sagde det med et smil. Og de troede hende.</p>
+      </div>
+
+      <div class="chap-card ditte-chap-card" data-num="4">
+        <span class="chap-emoji">⭐</span>
+        <p class="chap-num">Kapitel 4</p>
+        <h3>Nattens <em>stjerner</em></h3>
+        <p>Der er noget særligt ved at ligge på ryggen i en skov og kigge op. Ingen skærme. Ingen støj. Bare stjerner og lyden af et lejr der falder til ro.</p>
+        <div class="chap-quote">Det var en af de aftener man husker resten af livet.</div>
+      </div>
+
+      <div class="chap-card ditte-chap-card" data-num="5">
+        <span class="chap-emoji">🏕️</span>
+        <p class="chap-num">Kapitel 5</p>
+        <h3>Den <em>lange weekend</em></h3>
+        <p>Tre dage i skoven. Regn den første dag. Sol den anden. Og den tredje dag mødte hun Sander — en meget høj dreng med styr på stilen og nødder i tasken.</p>
+        <div class="chap-quote">Spejder-møder er verdens bedste dating-app.</div>
+      </div>
+
+      <div class="chap-card ditte-chap-card" data-num="6">
+        <span class="chap-emoji">🥜</span>
+        <p class="chap-num">Kapitel 6</p>
+        <h3><em>Nødderne</em> (Sanderversion)</h3>
+        <p>Han dukkede op med 0,5 kg nødder. Det er ikke normalt. Det er heller ikke problematisk. Det er faktisk ret sødt på den skæve måde.</p>
+        <div class="chap-quote">En mand der ved hvad han vil have med. Det er faktisk et plus.</div>
+      </div>
+
+      <div class="chap-card ditte-chap-card love-card" data-num="8" id="sanderCard2">
+        <span class="chap-emoji">💕</span>
+        <p class="chap-num">Kapitel 8</p>
+        <h3><em>Sander</em></h3>
+        <p>Han er høj. Han har midterskildning. Han slæber en gamer-PC med sig overalt. Han elsker nødder og lange ture i skoven.</p>
+        <p>Og Ditte valgte ham. Helt frivilligt. I en skov. I dansk vejr.</p>
+        <div class="chap-quote">Det siger alt. 🏕️</div>
+      </div>
+
+    </div>
+  </div>
+  <p class="drag-hint">← træk eller swipe →</p>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── BREV ── -->
+<section class="brev-wrap fi" id="brev">
+  <p class="sec-tag" style="margin-bottom:28px;color:var(--teal)">Fra Ditte, til Sander</p>
+  <div class="brev-card fi">
+    <p class="brev-tag">Et brev · fortroligt</p>
+    <h2 class="brev-title">Kære Sander</h2>
+    <div class="brev-body">
+      <p>Du er den eneste person jeg kender der tager en halv kilo nødder med på lejrtur og synes det er helt normalt. Det er det ikke. Men det er på en måde dig i en nøddeskal (undskyld).</p>
+      <p>Vi mødte hinanden i en skov. Det er ikke den mest romantiske setting. Det regnede. Jeg havde mudderstøvler på. Du havde sandsynligvis din gamer-PC med i tankerne selvom du ikke sagde det.</p>
+      <p>Men der er noget ved dig — din ro, din højde, din lidt for selvsikre midterskildning — der bare <em>virker</em>. Du er god. Egentlig rigtig god.</p>
+      <p>Og nu sidder vi her. Og jeg er glad for det.</p>
+    </div>
+    <p class="brev-sig">Med kærlighed, Ditte 🌿</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── TIDSLINJE ── -->
+<section class="timeline-wrap fi" id="tidslinje">
+  <p class="sec-tag" style="margin-bottom:36px;color:var(--teal)">Vejen hertil</p>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Lille Ditte</p>
+      <h3 class="tl-title">Det første <em>telt</em></h3>
+      <p class="tl-body">Første gang i telt. Regnede hele natten. Sov alligevel. Besluttede at det var det bedste nogensinde.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Spejder · de tidlige år</p>
+      <h3 class="tl-title">Kompas og <em>lejrbål</em></h3>
+      <p class="tl-body">Lærte at navigere. Lærte at tænde bål. Lærte at sove godt selvom det er koldt. Tre vigtige livskompetencer.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <p class="tl-year">Den afgørende tur</p>
+      <h3 class="tl-title">Skov, regn og <em>nødder</em></h3>
+      <p class="tl-body">En spejderweekend som alle andre. Indtil en meget høj dreng dukker op med 0,5 kg nødder og en ro der er lidt imponerende.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot rose"></div>
+      <p class="tl-year rose">Nu</p>
+      <h3 class="tl-title">Og hun <em>valgte ham</em></h3>
+      <p class="tl-body">Frivilligt. I en skov. I dansk vejr. To spejdere der fandt hinanden — og det var nok. 💕</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── DITTE FAKTA ── -->
+<section class="facts-wrap" id="fakta">
+  <p class="sec-tag fi" style="margin-bottom:10px;color:var(--teal)">Ditte i tal og fakta</p>
+  <div class="facts-grid">
+    <div class="fact-card fi">
+      <span class="fact-icon">🏕️</span>
+      <p class="fact-label">Spejder siden</p>
+      <h3>For evigt <em>siden</em></h3>
+      <p>Teltet er hjemmet. Skoven er kontoret. Kompasrosen er verdenskortet.</p>
+    </div>
+    <div class="fact-card fi" style="transition-delay:.08s">
+      <span class="fact-icon">🔥</span>
+      <p class="fact-label">Bålekspert</p>
+      <h3><em>Tre forsøg</em> er fint</h3>
+      <p>Bål tændes med tålmodighed og de rigtige pinde. Ikke med lighter. Næsten aldrig med lighter.</p>
+    </div>
+    <div class="fact-card fi" style="transition-delay:.16s">
+      <span class="fact-icon">💕</span>
+      <p class="fact-label">Kæreste med</p>
+      <h3>En høj dreng med <em>nødder</em></h3>
+      <p>Han slæber en PC med sig overalt og køber nødder i halvkilosportioner. Han er alligevel ret god.</p>
+    </div>
+
+    <div class="fact-card fi" style="transition-delay:.32s">
+      <span class="fact-icon">🌙</span>
+      <p class="fact-label">Favoritøjeblik</p>
+      <h3>Stjernerne <em>om natten</em></h3>
+      <p>Ingen skærme, ingen støj — bare himlen og lyden af en lejr der falder til ro.</p>
     </div>
   </div>
 </section>
 
+<div class="divider"></div>
+</div>
+
+<!-- ── DITTE UNLOCK OVERLAY ── -->
+<div id="ditteOverlay" style="display:none;position:fixed;inset:0;z-index:950;background:rgba(9,9,12,0.97);align-items:center;justify-content:center;flex-direction:column;">
+  <div style="text-align:center;max-width:380px;padding:0 24px">
+    <div style="font-size:3rem;margin-bottom:20px">🌿</div>
+    <h2 style="font-family:'Playfair Display',serif;font-style:italic;font-size:2rem;color:var(--teal2);margin-bottom:10px">Hemmelig adgang</h2>
+    <p style="font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.15em;color:var(--dim);margin-bottom:28px">INDTAST KODEN FOR AT SE DITTEBOGEN</p>
+    <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px">
+      <input id="ditteCodeInput" type="password" maxlength="20" placeholder="kode…"
+        style="flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(42,157,143,0.25);border-radius:10px;padding:12px 16px;color:var(--cream);font-family:'Space Mono',monospace;font-size:0.8rem;outline:none;letter-spacing:0.1em;"
+        onkeydown="if(event.key==='Enter')checkDitteCode()"/>
+      <button onclick="checkDitteCode()" style="background:linear-gradient(135deg,var(--teal),#0d6b60);border:none;border-radius:10px;padding:12px 20px;color:#fff;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;cursor:pointer;">→</button>
+    </div>
+    <p id="ditteCodeErr" style="font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--rose2);opacity:0;transition:opacity 0.3s;letter-spacing:0.08em">Forkert kode. Prøv igen.</p>
+    <button onclick="document.getElementById('ditteOverlay').style.display='none'" style="margin-top:24px;background:none;border:1px solid var(--dim);color:var(--dim);border-radius:40px;padding:8px 20px;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;cursor:pointer;">← tilbage</button>
+  </div>
+</div>
+
 <footer>
-  <span class="big" id="footerEmoji">🏕️🎮🔪🥜</span>
-  <p>Sander Nedergaard — en høj dreng med styr på stilen.</p>
-  <p>og hun hed Ditte. og det var nok.</p>
+  <span class="big" id="footerEmoji">🏕️🎮💕🌿</span>
+  <p>Sander & Ditte — to spejdere der fandt hinanden.</p>
+  <p>og det var nok. 💕</p>
 </footer>
 
 <script>
@@ -1167,7 +1546,7 @@ setInterval(renderNews, 60000); // opdater hvert minut
 
 // ── SCROLL OBSERVER ──
 const obs=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
-document.querySelectorAll('.chap-card,.vid-card,.fi').forEach(el=>obs.observe(el));
+document.querySelectorAll('.chap-card,.vid-card,.fi,.fact-card,.tl-item').forEach(el=>obs.observe(el));
 document.querySelectorAll('.chap-card').forEach((c,i)=>{c.style.transitionDelay=(i*0.065)+'s';});
 
 // ── DRAG SCROLL ──
@@ -1221,7 +1600,7 @@ document.addEventListener('keydown',e=>{
 let typeBuf='';
 document.addEventListener('keydown',e=>{
   if(e.key.length===1&&!e.ctrlKey&&!e.metaKey){typeBuf=(typeBuf+e.key.toLowerCase()).slice(-8);}
-  if(typeBuf.includes('ditte')){typeBuf='';spawnHearts(14);showToast('💘 Ditte! 😊');}
+  if(typeBuf.includes('ditte')){typeBuf='';openDitteOverlay();}
   if(typeBuf.includes('nødder')||typeBuf.includes('nodder')){typeBuf='';showToast('🥜 0,5 kg. ikke til forhandling.');}
   if(typeBuf.includes('sander')){typeBuf='';showToast('👋 Hej Sander! Midterskildning looking good 💇');}
 });
@@ -1236,6 +1615,111 @@ document.getElementById('footerEmoji').addEventListener('pointerdown',()=>{
 });
 document.getElementById('footerEmoji').addEventListener('pointerup',()=>clearTimeout(footerTimer));
 document.getElementById('footerEmoji').addEventListener('pointerleave',()=>clearTimeout(footerTimer));
+
+// ── EKSTRA SANGE PLAYER ──
+(function(){
+  const fmtT = s => isNaN(s) ? '--:--' : Math.floor(s/60)+':'+Math.floor(s%60).toString().padStart(2,'0');
+  document.querySelectorAll('.esang-btn').forEach(btn => {
+    const audioId = btn.getAttribute('data-audio');
+    const audio = document.getElementById(audioId);
+    const progWrap = document.querySelector(`.esang-prog-wrap[data-prog="${audioId}"]`);
+    const progFill = progWrap.querySelector('.esang-prog-fill');
+    const timeEl = document.querySelector(`.esang-time[data-time="${audioId}"]`);
+    const iPlay = btn.querySelector('[data-play]');
+    const iPause = btn.querySelector('[data-pause]');
+
+    audio.addEventListener('loadedmetadata', () => { timeEl.textContent = fmtT(audio.duration); });
+    audio.addEventListener('timeupdate', () => {
+      if(!audio.duration) return;
+      progFill.style.width = (audio.currentTime/audio.duration*100)+'%';
+      timeEl.textContent = fmtT(audio.currentTime);
+    });
+    audio.addEventListener('ended', () => {
+      btn.classList.remove('on'); iPlay.style.display=''; iPause.style.display='none';
+      userMuted=false; startBg();
+    });
+    progWrap.addEventListener('click', e => {
+      const r = progWrap.getBoundingClientRect();
+      audio.currentTime = ((e.clientX-r.left)/r.width)*(audio.duration||0);
+    });
+    btn.addEventListener('click', () => {
+      if(!audio.paused) {
+        audio.pause(); btn.classList.remove('on'); iPlay.style.display=''; iPause.style.display='none';
+        userMuted=false; startBg();
+      } else {
+        // stop alle andre
+        document.querySelectorAll('.esang-btn').forEach(b2 => {
+          const a2 = document.getElementById(b2.getAttribute('data-audio'));
+          if(a2 && !a2.paused){ a2.pause(); b2.classList.remove('on'); b2.querySelector('[data-play]').style.display=''; b2.querySelector('[data-pause]').style.display='none'; }
+        });
+        if(!sdAudio.paused){ sdAudio.pause(); btnPlay.classList.remove('on'); iPlay.style.display=''; iPause.style.display='none'; idleViz(); }
+        stopBg(); userMuted=true;
+        audio.play(); btn.classList.add('on'); iPlay.style.display='none'; iPause.style.display='';
+        spawnHearts(6);
+      }
+    });
+  });
+})();
+
+// ── DRAG SCROLL DITTE ──
+const dw=document.getElementById('ditteTrackWrap');
+if(dw){
+  let dDown=false,dStartX,dScrollL;
+  dw.addEventListener('mousedown',e=>{dDown=true;dStartX=e.pageX-dw.offsetLeft;dScrollL=dw.scrollLeft;dw.classList.add('dragging');});
+  window.addEventListener('mouseup',()=>{dDown=false;dw.classList.remove('dragging');});
+  dw.addEventListener('mousemove',e=>{if(!dDown)return;e.preventDefault();const x=e.pageX-dw.offsetLeft;dw.scrollLeft=dScrollL-(x-dStartX)*1.3;});
+}
+
+// ── DITTE PHOTO EASTER EGG ──
+let dittePhotoClicks=0;
+const dittePhotoEl=document.getElementById('dittePhoto');
+if(dittePhotoEl){
+  dittePhotoEl.addEventListener('click',()=>{
+    dittePhotoClicks++;
+    if(dittePhotoClicks===2)showToast('🌿 hm, nysgerrig?');
+    if(dittePhotoClicks===4)showToast('💭 du er tæt på noget...');
+    if(dittePhotoClicks>=5){dittePhotoClicks=0;document.getElementById('secretOverlay').classList.add('show');spawnHearts(16);}
+  });
+}
+
+// ── DITTEBOGEN HEMMELIG ADGANG ──
+const DITTE_CODE = 'ditte';
+
+function openDitteOverlay(){
+  const ov = document.getElementById('ditteOverlay');
+  ov.style.display = 'flex';
+  setTimeout(()=>document.getElementById('ditteCodeInput').focus(), 50);
+}
+
+function checkDitteCode(){
+  const val = document.getElementById('ditteCodeInput').value.trim().toLowerCase();
+  const err = document.getElementById('ditteCodeErr');
+  if(val === DITTE_CODE){
+    document.getElementById('ditteOverlay').style.display='none';
+    const sec = document.getElementById('ditteSection');
+    sec.style.display='block';
+    setTimeout(()=>{
+      sec.scrollIntoView({behavior:'smooth'});
+      spawnHearts(14);
+      showToast('🌿 Velkommen til Dittebogen ⭐');
+    }, 100);
+    document.getElementById('ditteCodeInput').value='';
+  } else {
+    err.style.opacity='1';
+    setTimeout(()=>err.style.opacity='0', 2200);
+    document.getElementById('ditteCodeInput').value='';
+    document.getElementById('ditteCodeInput').focus();
+  }
+}
+
+// Skjul ditte-sektionen fra scroll — forhindre anchor-navigation
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[href="#dittebogen"]');
+  if(a){ e.preventDefault(); openDitteOverlay(); }
+});
+
+// Skriv "ditte" på tastaturet → åbn overlay (easter egg)
+// (overskriver tidligere ditte-easter-egg)
 </script>
 </body>
 </html>
